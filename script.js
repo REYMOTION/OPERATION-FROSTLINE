@@ -81,35 +81,23 @@ document.addEventListener('DOMContentLoaded', () => {
 const trailerBtn = document.querySelector('.btn-secondary');
 const modal = document.getElementById('trailerModal');
 const closeBtn = document.querySelector('.close-btn');
-let player; // سننشئه عند الفتح
+const trailerVideo = document.getElementById('trailerVideo');
 
 trailerBtn.addEventListener('click', () => {
     modal.style.display = 'flex';
-
-    // إذا لم يتم إنشاء Plyr بعد
-    if (!player) {
-        const trailerVideo = document.getElementById('trailerVideo');
-        player = new Plyr(trailerVideo, {
-            controls: [
-                'play-large', 'play', 'progress', 'current-time', 'duration',
-                'mute', 'volume', 'captions', 'settings', 'fullscreen'
-            ],
-            keyboard: { global: true }
-        });
-    }
-
-    player.restart(); // إعادة الفيديو من البداية
-    player.play();
+    // إعادة تحميل الفيديو مع autoplay
+    trailerVideo.src = "https://www.youtube-nocookie.com/embed/joCTzfucGrw?autoplay=1";
 });
 
 closeBtn.addEventListener('click', () => {
     modal.style.display = 'none';
-    if (player) player.pause();
+    // إيقاف الفيديو عند الإغلاق
+    trailerVideo.src = "https://www.youtube-nocookie.com/embed/joCTzfucGrw";
 });
 
 window.addEventListener('click', (e) => {
     if (e.target === modal) {
         modal.style.display = 'none';
-        if (player) player.pause();
+        trailerVideo.src = "https://www.youtube-nocookie.com/embed/joCTzfucGrw";
     }
 });
